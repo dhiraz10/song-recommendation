@@ -1,0 +1,83 @@
+{% extends 'master/base.html' %}
+{% load static %}
+
+{% block title %}
+  Registration Page
+{% endblock %}
+{% block customcss %}
+<style media="screen">
+
+body {
+    background-repeat: no-repeat;
+    background-position: 5% 75%;
+    background-image: url(" {% static 'imgs/kurt.png' %} ");
+
+}
+html {
+    max-width:100%;
+    max-height:100%;
+
+}
+label {
+    color: white;
+}
+.btn {
+  border: none;
+background: #266867;
+color: #ffffff !important;
+font-weight: 100;
+padding: 20px;
+text-transform: uppercase;
+border-radius: 6px;
+display: inline-block;
+transition: all 0.3s ease 0s;
+}
+  .btn:hover {
+color: #404040 !important;
+font-weight: 700 !important;
+letter-spacing: 3px;
+background: none;
+-webkit-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+-moz-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+transition: all 0.3s ease 0s;
+}
+</style>
+{% endblock %}
+{% block bodycontent %}
+<div class="container col-md-4 col-md-offset-4" style="padding-top:25px;">
+  <div class="page-header"> <h2 style="color:#266867; text-align:center; font-size:30px;"><strong> Register Your Account</strong></h2></div>
+  {% if msg %}
+  <div class="alert alert-info alert-dismissible">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    {{ msg }}
+  </div>
+  {% endif %}
+  <form method="post">
+      {% for field in form %}
+      <p>
+        {{ field.label_tag }}<br>
+        {{ field }}
+        {% if form.help_text %}
+          <small style="color: blue">{{ field.help_text }}</small>
+        {% endif %}
+        {% for error in field.errors %}
+          <p style="color: red">{{ error }}</p>
+        {% endfor %}
+      </p>
+      {% endfor %}
+      {% csrf_token %}
+   <br>
+    <button type="submit" class="btn col-md-12">Sign up</button>
+
+    {% if form.non_field_errors %}
+      {% for error in form.non_field_errors %}
+        <div class="alert alert-warning alert-dismissible">
+          <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+          {{ error }}
+        </div>
+        <br/>
+      {% endfor %}
+    {% endif %}
+  </form>
+</div>
+{% endblock %}

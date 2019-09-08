@@ -1,0 +1,46 @@
+{% extends 'master/base.html' %}
+{% load static %}
+{% block customcss %}
+<style media="screen">
+      body{
+        background: linear-gradient(90deg, #A8D1E7, #FBFAFC);
+  }
+
+.overlay {
+  position: fixed;
+  bottom: 0;
+  background: rgb(0, 0, 0);
+  background: rgba(0, 0, 0, 0.5); /* Black see-through */
+  left: 0%;
+  right: 100%;
+  width: 100%;
+  transition: .5s ease;
+  opacity:0;
+  color: white;
+  font-size: 15px;
+  padding: 20px;
+  text-align: center;
+}
+.pic1:hover .overlay {
+  opacity: 1;
+
+}
+.image {
+  display: block;
+  width: 100%;
+  height: 80%;
+}
+</style>
+{% endblock %}
+{% block bodycontent %}
+<div style="padding-top:50px;">
+<div class="col-md-4 pic1">
+<img src="{% static 'imgs/tt.png' %}" alt="New York" class="image" >
+    <div class="overlay"> Music plays a very important role in bringing people together. Whether it’s a festival, concert or a club night, people come together to enjoy the music that’s being played. I’ve had the privilege to attend a few big festivals in Europe, and it’s amazing to see the amount of people coming from different countries in the whole world, just to be part of the experience. At festivals like Tomorrowland or Ultra, you’ll see a lot of people from all over the world to enjoy the whole musical experience.
+        It doesn’t matter where you come from, every one is treated the same.
+        This is something we can all learn from.</div>
+</div>
+
+
+</div>
+{% endblock %}

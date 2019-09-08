@@ -1,0 +1,20 @@
+{% load static %}
+<div class="container">
+  <div class="row">
+    <div class="pagination" style="float:right;padding-top:45px;padding-right:60px;">
+      <span class="step-links">
+        <ul class="pagination pagination-lg">
+        {% if page.has_previous %}
+        <li><a href="?page={{ page.previous_page_number }}" style="background-color: #538cc6;color:white;">Previous</a></li>
+        {% endif %}
+        <li><span class="current">
+          Page {{ page.number }} of {{ page.paginator.num_pages }}
+        </span></li>
+        {% if page.has_next %}
+        <li> <a href="?page={{ page.next_page_number }}" style="background-color:#538cc6;color:white;">Next</a></li>
+        {% endif %}
+      </ul>
+      </span>
+    </div>
+  </div>
+</div>

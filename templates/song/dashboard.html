@@ -1,0 +1,115 @@
+{% extends 'master/base.html' %}
+{% load static %}
+
+{% block title %}
+  User Dashboard
+{% endblock %}
+
+{% block customcss %}
+<style media="screen">
+  body{
+
+ height: 2px;
+  background-repeat: repeat;
+  background-image: url(" {% static 'imgs/bird.jpg' %} ");
+  }
+  a:hover {
+    text-decoration:none;
+  }
+  .overlay {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  width: 100%;
+  opacity: 0;
+  transition: .3s ease;
+  background-color: #F09894;
+}
+#con:hover .overlay {
+  opacity: 0.8;
+}
+.icon {
+  color: white;
+  font-size: 100px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  text-align: center;
+}
+.glyphicon glyphicon-play-circle:hover  {
+  color: #eee;
+  opacity: 50;
+}
+.search-box{max-width: 350px; margin:0 auto 30px;}
+  .btn {
+  border: none;
+background: #266867;
+color: #ffffff !important;
+font-weight: 100;
+text-transform: uppercase;
+border-radius: 6px;
+display: inline-block;
+transition: all 0.3s ease 0s;
+}
+  .btn:hover {
+color: #404040 !important;
+font-weight: 700 !important;
+letter-spacing: 3px;
+background: none;
+-webkit-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+-moz-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+transition: all 0.3s ease 0s;
+}
+</style>
+{% endblock %}
+
+{% block bodycontent %}
+{% if msg %}
+<div class="alert alert-info alert-dismissible">
+  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+  {{ msg }}
+</div>
+{% endif %}
+
+{% include 'song/partials/pagination.html' with page=songs %}
+<div class="container" style="padding-top:0px;margin-top:0px;">
+  <form method="get" class="input-group search-box">
+    <input type="search" class="form-control" name="search" value="{{searchKey}}" placeholder="Enter Song Name...">
+    <span class="input-group-btn">
+      <button class="btn " type="submit">Search</button>
+    </span>
+  </form>
+<div class="row" id="search-result">
+  {% if songs.paginator.count > 0 %}
+  {% for song in songs%}
+  <div class="col-md-3">
+    <div class="well well-sm well-lg img-rounded" style="background:#6699cc;padding-right:5px;height:210px;width:200px;" >
+      {% if song.image %}
+      <div class="container" id="con" style="position: relative;width:100%;">
+        <img src="{{song.image.url}}" class="image" alt="" style="height:150px;width:150px;display:block;">
+        <div class="overlay">
+          <a href="{% url 'song:recommend' song.id %}" class="icon">
+            <i class="glyphicon glyphicon-play-circle"></i>
+          </a>
+        </div>
+      </div>
+      {% endif %}
+      <strong>
+        <p style="color:white;"><i class="glyphicon glyphicon-play-circle"style="padding:5px;"></i>{{ song.name }}</p>
+      </strong>
+    </div>
+  </div>
+  {% endfor %}
+  {% else %}
+  <div class="col-xs-12 text-center text-info">Sorry! No song matched.</div>
+  {% endif %}
+</div>
+</div>
+
+
+{% endblock %}
